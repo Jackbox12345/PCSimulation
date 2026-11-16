@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Segoe UI", Inter, system-ui, sans-serif;
+  --color-lab-bg: #0e141c;
+  --color-lab-sidebar: #101720;
+  --color-lab-panel: #141d27;
+  --color-lab-text: #dce5ed;
+  --color-lab-muted: #7f91a3;
+  --color-lab-accent: #7cdfcd;
+  --color-lab-focus: #77dfd0;
+  --color-lab-border: #2b3947;
+  --color-lab-success: #7bdfca;
+  --color-lab-warning: #efbd77;
+}
+
+/* Shared browser defaults and typography. Components use Tailwind utilities. */
+@layer base {
+  :root {
+    font-family: var(--font-sans);
+    color: #dce5ed;
+    background: #0e141c;
+    font-synthesis: none;
+    font-size: 14px;
+    color-scheme: dark;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    min-width: 360px;
+  }
+  button {
+    font: inherit;
+  }
+  input {
+    font: inherit;
+  }
+  select {
+    font: inherit;
+  }
+  button {
+    cursor: pointer;
+    color: inherit;
+  }
+  button {
+    transition:
+      background 0.18s,
+      border-color 0.18s,
+      color 0.18s;
+  }
+  a {
+    transition:
+      background 0.18s,
+      border-color 0.18s,
+      color 0.18s;
+  }
+  button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  button:focus-visible {
+    outline: 2px solid #77dfd0;
+    outline-offset: 4px;
+  }
+  a:focus-visible {
+    outline: 2px solid #77dfd0;
+    outline-offset: 4px;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h1 {
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+  }
+  h3 {
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    line-height: 1.25;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  p {
+    line-height: 1.7;
+  }
+  svg {
+    flex-shrink: 0;
+  }
+  dl {
+    margin: 14px 0;
+  }
+  dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 10px;
+    margin: 9px 0;
+  }
+  dt {
+    color: #7f95a6;
+  }
+  dd {
+    text-align: right;
+    color: #b9ccd7;
+  }
+  fieldset {
+    border: 1px solid #334754;
+    border-radius: 4px;
+    padding: 0 10px;
+    margin: 16px 0;
+  }
+  legend {
+    color: #84c5c4;
+    font-family: monospace;
+    font-size: 10px;
+    padding: 0 6px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+  @media (max-width: 980px) {
+    h1 {
+      font-size: 28px;
+    }
+  }
+}
+
+/* React Flow owns this markup; keep its integration overrides isolated. */
+.react-flow {
+  --xy-background-color: #101923;
+  --xy-controls-button-background-color: #1d303d;
+  --xy-controls-button-color: #9cbdce;
+  --xy-controls-button-border-color: #344b5c;
+  --xy-controls-button-background-color-hover: #304857;
+  --xy-minimap-background-color: #13232e;
+}
+.react-flow__attribution {
+  font-size: 8px !important;
+  background: #182b38 !important;
+  color: #7290a3 !important;
+}
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #f4cb85 !important;
+  stroke-width: 3 !important;
+}
+.react-flow__minimap {
+  width: 110px !important;
+  height: 80px !important;
+  bottom: 20px !important;
+}
+.react-flow__handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: #78cebf !important;
+  border: 2px solid #182d37 !important;
+  bottom: -5px !important;
+}
