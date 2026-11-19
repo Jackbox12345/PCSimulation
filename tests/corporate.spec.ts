@@ -78,6 +78,7 @@ test("learning visualizations update layers, packet steps and subnet arithmetic"
   page,
 }) => {
   await page.goto("/guide");
+  await page.getByRole("button", { name: "Visual walkthroughs", exact: true }).click();
   await page
     .getByRole("button", { name: "PC → another subnet", exact: true })
     .click();

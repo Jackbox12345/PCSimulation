@@ -29,6 +29,7 @@ export type DeviceData = {
   routes: StaticRoute[];
   policy: Record<Protocol, boolean>;
   records: DNSRecord[];
+  disabledPorts?: string[];
 };
 export type LabNode = Node<DeviceData, "device">;
 export type LabEdge = Edge;

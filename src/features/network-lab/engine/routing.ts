@@ -24,11 +24,13 @@ const interfaces = (nodes: LabNode[]): Hop[] =>
   nodes
     .filter((n) => isRouted(n.data.kind))
     .flatMap((node) =>
-      Object.entries(node.data.interfaces).map(([port, c]) => ({
-        node,
-        port,
-        ...c,
-      })),
+      Object.entries(node.data.interfaces)
+        .filter(([port]) => !node.data.disabledPorts?.includes(port))
+        .map(([port, c]) => ({
+          node,
+          port,
+          ...c,
+        })),
     );
 
 /** Forward one datagram. Switches bridge only; routed interfaces terminate each LAN. */

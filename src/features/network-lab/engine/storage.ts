@@ -48,6 +48,13 @@ export function decodeTopology(raw: string): {
     )
       throw new Error("Saved device data is invalid.");
     ids.add(n.id);
+    if (
+      d.disabledPorts !== undefined &&
+      (!Array.isArray(d.disabledPorts) ||
+        d.disabledPorts.length > 4 ||
+        !d.disabledPorts.every((p) => ports(d.kind).includes(p)))
+    )
+      throw new Error("Invalid administrative port state.");
     const routes = d.routes ?? [],
       records = d.records ?? [],
       policy = d.policy ?? { icmp: true, dns: true, https: true };
@@ -82,6 +89,7 @@ export function decodeTopology(raw: string): {
       position: { x: n.position.x, y: n.position.y },
       data: {
         kind: d.kind,
+        disabledPorts: [...(d.disabledPorts ?? [])],
         name: d.name,
         ip: d.ip,
         mask: d.mask,

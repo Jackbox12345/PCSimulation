@@ -8,7 +8,7 @@ import {
   evaluateNetworkMission,
   type NetworkMissionId,
 } from "../data/scenarios";
-import { isRouted, type LabNode, type Protocol } from "../data/types";
+import { isRouted, ports, type LabNode, type Protocol } from "../data/types";
 export function NetworkMissions() {
   const s = useNetworkStore(),
     flow = useReactFlow();
@@ -117,6 +117,28 @@ export function CorporateInspector({ node }: { node: LabNode }) {
   const update = useNetworkStore((s) => s.update);
   return (
     <>
+      <fieldset>
+        <legend>Administrative port state</legend>
+        {ports(node.data.kind).map((port) => (
+          <label
+            className="my-3 flex items-center justify-between gap-2 text-xs"
+            key={port}
+          >
+            Enable {port}
+            <input
+              type="checkbox"
+              checked={!node.data.disabledPorts?.includes(port)}
+              onChange={(e) =>
+                update(node.id, {
+                  disabledPorts: e.target.checked
+                    ? (node.data.disabledPorts ?? []).filter((p) => p !== port)
+                    : [...new Set([...(node.data.disabledPorts ?? []), port])],
+                })
+              }
+            />
+          </label>
+        ))}
+      </fieldset>
       {isRouted(node.data.kind) && (
         <div className="mt-[16px] border-t border-lab-border pt-[12px]">
           <h3>Static routes</h3>

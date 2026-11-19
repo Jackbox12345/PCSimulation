@@ -85,6 +85,13 @@ export function validateNetwork(
       severity,
     });
   for (const n of nodes) {
+    for (const port of n.data.disabledPorts ?? [])
+      add(
+        n,
+        "shutdown",
+        `${port} is administratively down. Use no shutdown in interface configuration mode or enable the port in the inspector.`,
+        "warning",
+      );
     if (!edges.some((e) => e.source === n.id || e.target === n.id))
       add(n, "disconnected", "no cable is connected.", "warning");
     if (isRouted(n.data.kind)) {
@@ -136,8 +143,9 @@ export function validateNetwork(
       a.ip ||
       edges.some(
         (e) =>
-          (e.source === a.node.id && e.sourceHandle === a.port) ||
-          (e.target === a.node.id && e.targetHandle === a.port),
+          !a.node.data.disabledPorts?.includes(a.port) &&
+          ((e.source === a.node.id && e.sourceHandle === a.port) ||
+            (e.target === a.node.id && e.targetHandle === a.port)),
       );
     if (!active) continue;
     if (!validMask(a.mask))
@@ -193,6 +201,15 @@ export function l2Reachable(
   while (queue.length) {
     const id = queue.shift()!;
     for (const e of edges) {
+      if (
+        nodes
+          .find((n) => n.id === e.source)
+          ?.data.disabledPorts?.includes(e.sourceHandle ?? "") ||
+        nodes
+          .find((n) => n.id === e.target)
+          ?.data.disabledPorts?.includes(e.targetHandle ?? "")
+      )
+        continue;
       if (e.source !== id && e.target !== id) continue;
       if (
         id === source &&

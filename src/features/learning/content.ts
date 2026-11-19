@@ -52,7 +52,7 @@ export const lessons = [
     id: "switch",
     group: "Networking",
     title: "What does a switch do?",
-    text: "A Layer 2 Ethernet switch connects devices within a local network and forwards frames between ports. It does not route between IP subnets. The lab's access switches are unmanaged and need no IP address. A multilayer core switch can also route; this lab models its routed physical ports.",
+    text: "A Layer 2 Ethernet switch connects devices within a local network and forwards frames between ports. It does not route between IP subnets. The lab's access switches need no IP address for forwarding; their ports can be enabled or disabled in the inspector or CLI. A multilayer core switch can also route; this lab models its routed physical ports.",
     tip: "Drag a cable from each computer’s Ethernet port to a different switch port.",
   },
   {

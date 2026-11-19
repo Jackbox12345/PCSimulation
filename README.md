@@ -80,11 +80,43 @@ Each lab now offers Easy, Medium, and Hard tickets in addition to the original i
 
 The hard network is an explicitly routed teaching environment. ISP return routes to the private corporate LAN are preconfigured; it does **not** claim to reproduce a typical public Internet deployment with NAT. Network saves include route tables, firewall policies, DNS records, and the active ticket. Older saved topologies receive safe defaults for the new fields.
 
-## CCNA visual learning
+## Guided learning courses and reference library
+
+The guide opens with two beginner courses: **PC Hardware Fundamentals** and **Computer Networking Fundamentals**, each with eight ordered lessons. Expand course categories, open one lesson at a time, and use Previous / Next / Back to Courses. Each lesson has an objective, short explanations, a visual exploration, a realistic example, simulator practice steps, an explained multiple-choice check, and a summary.
+
+Interactive CPU/RAM comparisons read the existing hardware dataset. The local-network diagram explores matching subnets, duplicate addresses, and reserved network addresses. Practice links use the existing simulator routes and never reset configurations. Software, CCNA, and original short notes remain searchable in the **Reference library**; OSI and packet tools remain in **Visual walkthroughs**.
+
+A correct knowledge check unlocks **Mark lesson complete**; opening a lesson does not count as completion. Progress records completed lessons, passed checks, and the last visited lesson. It is session-only unless **Remember learning progress on this browser** is enabled. Saved data in `itlab.learning.v1` is versioned and validated against the lesson catalog; unavailable storage falls back to session state. Turning saving off removes the saved copy, and Reset learning progress requires a separate confirmation. Legacy links such as `/guide#socket` still open their guided lesson.
+
+Learning data lives in `src/features/learning/courses`, reusable lesson components in `components`, and progress validation/state in `hooks`. The simulator engines are unchanged.
 
 The Learning Guide includes a selectable seven-layer OSI model, an IPv4 subnet calculator, and three step-through journeys: local PC-to-PC ping, routed PC-to-PC ping, and DNS-to-HTTPS portal access. It shows ARP scope, gateway selection, frame rewriting, TTL, independent return routing, DNS, TCP, TLS, and HTTP responsibilities. These diagrams are guided examples independent of the current topology.
 
 Field notes cover all six domains in [Cisco's official CCNA exam outline](https://learningnetwork.cisco.com/s/ccna-exam-topics), including VLANs, STP, EtherChannel, IPv6, OSPF, services, security, wireless, and automation. This is introductory study material, not a complete exam preparation course. Unsupported protocols are explicitly labeled as conceptual lessons.
+
+## Device command consoles
+
+Select a device in Network Lab and scroll to **Device CLI** beneath the canvas. Enter one command or paste a batch; Enter runs it, Shift+Enter adds a line, and Up/Down recalls history. Configuration changes are shared immediately with the inspector, routing engine, and missions.
+
+Routed devices and access switches support an IOS-style subset: enable, disable, configure terminal, hostname, interface, shutdown, no shutdown, exit, end, show ip interface brief, show interfaces, and show running-config. Routed interfaces also accept ip address / no ip address; routed devices accept ip route / no ip route and show ip route. Use do show in configuration mode. Common aliases en, conf t, int, sh run, and sh ip int br are supported. g0/0 and g0/1 map to eth0/eth1; switch fa0/1 through fa0/4 map to p1 through p4.
+
+Example core LAN configuration:
+
+~~~text
+enable
+configure terminal
+interface g0/0
+ip address 10.10.10.1 255.255.255.0
+no shutdown
+end
+show ip interface brief
+~~~
+
+Host terminals support ipconfig, ping, tracert, nslookup, and https. Ping/tracert target host IPv4 addresses in the topology; traces show calculated paths without simulated packet timing. Lab-only helpers are ipconfig set <IPv4> <mask> [gateway] and dns-server <IPv4>; these are explicitly not native Windows commands.
+
+Shutdown ports stop simulated forwarding and survive Save topology / Load. The inspector exposes matching port-enable controls. Existing ports default to enabled for compatibility with the original sandbox. Console history/mode reset when switching devices; configuration stays. Save topology provides browser persistence; IOS startup-config, write memory, VLAN commands, dynamic routing, ACL syntax, and router-interface ping are not implemented. Unsupported commands return an explanation and leave configuration unchanged. The firewall continues using its existing service-policy controls.
+
+This is a command-driven educational subset, not Cisco IOS or a full Packet Tracer replacement. [Cisco interface configuration reference](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-addressing/b-ip-addressing/m_config-ipv4-addr-0.html).
 
 ## Structure and decisions
 

@@ -41,6 +41,7 @@ import {
   NetworkMissions,
   CorporateInspector,
 } from "../components/CorporateControls";
+import DeviceCLI from "../components/DeviceCLI";
 const nodeTypes = { device: DeviceNode };
 function NetworkWorkspace() {
   const s = useNetworkStore();
@@ -242,6 +243,7 @@ function NetworkWorkspace() {
             <Info size={16} />
             {s.message}
           </div>
+          <DeviceCLI node={selected} />
           <Panel title="Connectivity test" className={ui("ping-panel")}>
             <div className={ui("ping-controls")}>
               <label className={ui("form-field")}>
